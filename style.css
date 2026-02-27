@@ -1,0 +1,129 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.container {
+  width: min(1000px, 92%);
+  margin: 18px auto;
+}
+
+h1, h2, h3 { margin: 0 0 10px; }
+
+.card {
+  background: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 160px 1fr 120px;
+  gap: 10px;
+  align-items: center;
+}
+
+input, select, button {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0b1220;
+  color: #e2e8f0;
+}
+
+button {
+  cursor: pointer;
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.status { min-height: 20px; }
+
+.panel {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.spriteBox {
+  display: grid;
+  place-items: center;
+  background: #0b1220;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.spriteBox img {
+  width: 180px;
+  height: 180px;
+  image-rendering: pixelated;
+}
+
+.infoBox .audioRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.label { font-weight: 600; }
+.muted { color: #94a3b8; font-size: 0.95rem; }
+
+.movesGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 10px 0 12px;
+}
+
+.movePick label { display: block; margin-bottom: 6px; }
+
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.teamCard {
+  background: #0b1220;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.teamHeader {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.teamHeader img {
+  width: 64px;
+  height: 64px;
+}
+
+.movesList {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.danger {
+  margin-top: 12px;
+  background: #dc2626;
+  border-color: #dc2626;
+}
