@@ -1,6 +1,5 @@
-
 const memoryCache = new Map();
-const LS_PREFIX = "pokeCache_v1_"; 
+const LS_PREFIX = "pokeCache_v1_";
 
 function normalizeKey(input) {
   return String(input).trim().toLowerCase();
@@ -19,8 +18,7 @@ function loadFromLocalStorage(key) {
 function saveToLocalStorage(key, data) {
   try {
     localStorage.setItem(LS_PREFIX + key, JSON.stringify(data));
-  } catch {
-  }
+  } catch {}
 }
 
 async function fetchPokemon(nameOrId) {
@@ -47,7 +45,6 @@ async function fetchPokemon(nameOrId) {
   return data;
 }
 
-
 const pokemonInput = document.getElementById("pokemonInput");
 const submitBtn = document.getElementById("submitBtn");
 const statusEl = document.getElementById("status");
@@ -69,13 +66,11 @@ const teamGrid = document.getElementById("teamGrid");
 const clearBtn = document.getElementById("clearBtn");
 
 let currentPokemon = null;
-
 let team = [];
 
-
+/* Hide status messages to match teacher screenshots */
 function setStatus(msg, isError = false) {
-  statusEl.textContent = msg;
-  statusEl.style.color = isError ? "#fca5a5" : "#a7f3d0";
+  statusEl.textContent = "";
 }
 
 function capitalize(s) {
@@ -108,7 +103,7 @@ function fillMoveDropdowns(moves) {
 }
 
 function getSelectedMoves() {
-  return moveSelects.map(s => s.value).filter(v => v !== "");
+  return moveSelects.map((s) => s.value).filter((v) => v !== "");
 }
 
 function hasDuplicateMoves(selectedMoves) {
@@ -127,82 +122,41 @@ function pickCryUrl(pokeData) {
   return pokeData?.cries?.latest || pokeData?.cries?.legacy || "";
 }
 
+/*
+  Teacher screenshot: Team section is a simple bordered list:
+  - left: sprite
+  - right: bullet list of 4 moves
+  - no audio, no remove button, no extra text
+*/
 function renderTeam() {
   teamGrid.innerHTML = "";
+  if (team.length === 0) return;
 
-  if (team.length === 0) {
-    const p = document.createElement("p");
-    p.className = "muted";
-    p.textContent = "No team members yet. Load a Pokémon, pick moves, click Add to Team.";
-    teamGrid.appendChild(p);
-    return;
-  }
+  team.forEach((member) => {
+    const row = document.createElement("div");
+    row.className = "teamCard";
 
-  team.forEach((member, idx) => {
-    const card = document.createElement("div");
-    card.className = "teamCard";
-
-    const header = document.createElement("div");
-    header.className = "teamHeader";
+    const left = document.createElement("div");
+    left.className = "teamHeader";
 
     const img = document.createElement("img");
     img.src = member.sprite;
     img.alt = member.name;
-
-    const titleWrap = document.createElement("div");
-    const h = document.createElement("h3");
-    h.textContent = `${idx + 1}. ${member.name}`;
-    const small = document.createElement("div");
-    small.className = "muted";
-    small.textContent = `ID: ${member.id}`;
-
-    titleWrap.appendChild(h);
-    titleWrap.appendChild(small);
-
-    header.appendChild(img);
-    header.appendChild(titleWrap);
+    left.appendChild(img);
 
     const ul = document.createElement("ul");
     ul.className = "movesList";
-    member.moves.forEach(m => {
+    member.moves.forEach((m) => {
       const li = document.createElement("li");
       li.textContent = m;
       ul.appendChild(li);
     });
 
-    const audioWrap = document.createElement("div");
-    audioWrap.style.marginTop = "10px";
-    if (member.cryUrl) {
-      const audio = document.createElement("audio");
-      audio.controls = true;
-      audio.src = member.cryUrl;
-      audioWrap.appendChild(audio);
-    } else {
-      const note = document.createElement("div");
-      note.className = "muted";
-      note.textContent = "No cry audio available for this Pokémon.";
-      audioWrap.appendChild(note);
-    }
-
-    const removeBtn = document.createElement("button");
-    removeBtn.type = "button";
-    removeBtn.textContent = "Remove";
-    removeBtn.className = "danger";
-    removeBtn.style.marginTop = "10px";
-    removeBtn.onclick = () => {
-      team.splice(idx, 1);
-      renderTeam();
-    };
-
-    card.appendChild(header);
-    card.appendChild(ul);
-    card.appendChild(audioWrap);
-    card.appendChild(removeBtn);
-
-    teamGrid.appendChild(card);
+    row.appendChild(left);
+    row.appendChild(ul);
+    teamGrid.appendChild(row);
   });
 }
-
 
 async function handleSubmit() {
   const inputVal = pokemonInput.value.trim();
@@ -222,9 +176,12 @@ async function handleSubmit() {
     const displayName = capitalize(data.name);
     pokeNameEl.textContent = displayName;
 
+    /* Replace placeholder image with the real Pokemon sprite */
     const spriteUrl = pickBestSprite(data);
-    pokeImgEl.src = spriteUrl;
-    pokeImgEl.alt = displayName;
+    if (spriteUrl) {
+      pokeImgEl.src = spriteUrl;
+      pokeImgEl.alt = displayName;
+    }
 
     const cryUrl = pickCryUrl(data);
     pokeAudioEl.src = "";
@@ -237,13 +194,13 @@ async function handleSubmit() {
       audioNoteEl.textContent = "No cry audio found for this Pokémon.";
     }
 
-    const moveNames = (data.moves || []).map(m => m.move.name);
-    moveNames.sort(); 
+    const moveNames = (data.moves || []).map((m) => m.move.name);
+    moveNames.sort();
 
     fillMoveDropdowns(moveNames);
 
     addBtn.disabled = false;
-    setStatus(`Loaded ${displayName}. Pick 4 moves and click "Add to Team".`);
+    setStatus(`Loaded ${displayName}.`);
   } catch (err) {
     setStatus(err.message || "Something went wrong.", true);
   }
@@ -253,14 +210,14 @@ function handleAddToTeam() {
   if (!currentPokemon) return;
 
   if (team.length >= 6) {
-    setStatus("Team is full (6). Remove one or clear the team.", true);
+    setStatus("Team is full (6).", true);
     return;
   }
 
   const selected = getSelectedMoves();
 
   if (selected.length !== 4) {
-    setStatus("Please select exactly 4 moves (one in each dropdown).", true);
+    setStatus("Please select exactly 4 moves.", true);
     return;
   }
 
@@ -282,7 +239,6 @@ function handleAddToTeam() {
   setStatus(`${member.name} added to your team!`);
 }
 
-
 submitBtn.addEventListener("click", handleSubmit);
 
 pokemonInput.addEventListener("keydown", (e) => {
@@ -296,6 +252,14 @@ clearBtn.addEventListener("click", () => {
   renderTeam();
   setStatus("Team cleared.");
 });
+
+/* ===== Initial page placeholder (your PNG) =====
+   Put your placeholder image file in the same folder as index.html,
+   and name it: placeholder.png
+   If yours has a different name, change it here.
+*/
+pokeImgEl.src = "initialpoke.png";
+pokeImgEl.alt = "No Pokemon selected";
 
 renderTeam();
 clearMoveDropdowns();

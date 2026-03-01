@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pokemon Team Builder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="container">
+    <h1>Pokemon Team Builder</h1>
+    <p>Enter a Pokémon name or ID (1–151 works great).</p>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <div class="row">
+        <label for="pokemonInput">Pokémon Name/ID</label>
+        <input id="pokemonInput" type="text" placeholder="pikachu or 25" />
+        <button id="submitBtn" type="button">Submit</button>
+      </div>
+      <p id="status" class="status"></p>
+    </section>
+
+    <section class="card" id="pokemonPanel" aria-live="polite">
+      <h2 id="pokeName">No Pokémon loaded</h2>
+
+      <div class="panel">
+        <div class="spriteBox">
+          <img id="pokeImg" alt="" />
+        </div>
+
+        <div class="infoBox">
+          <div class="audioRow">
+            <span class="label">Cry:</span>
+            <audio id="pokeAudio" controls></audio>
+            <span id="audioNote" class="muted"></span>
+          </div>
+
+          <h3>Choose 4 Moves</h3>
+          <div class="movesGrid">
+            <div class="movePick">
+              <label for="move1">Move 1</label>
+              <select id="move1"></select>
+            </div>
+            <div class="movePick">
+              <label for="move2">Move 2</label>
+              <select id="move2"></select>
+            </div>
+            <div class="movePick">
+              <label for="move3">Move 3</label>
+              <select id="move3"></select>
+            </div>
+            <div class="movePick">
+              <label for="move4">Move 4</label>
+              <select id="move4"></select>
+            </div>
+          </div>
+
+          <button id="addBtn" type="button" disabled>Add to Team</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Your Team</h2>
+      <p class="muted">Up to 6 Pokémon (classic team size).</p>
+      <div id="teamGrid" class="teamGrid"></div>
+      <button id="clearBtn" type="button" class="danger">Clear Team</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

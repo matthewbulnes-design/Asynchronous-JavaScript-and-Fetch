@@ -1,129 +1,245 @@
+
 * { box-sizing: border-box; }
 
-body {
+body{
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
+  background: #aedded;                 /* light blue background */
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.container {
-  width: min(1000px, 92%);
-  margin: 18px auto;
+header.container{
+  display: none;
 }
 
-h1, h2, h3 { margin: 0 0 10px; }
-
-.card {
-  background: #111827;
-  border: 1px solid #1f2937;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 14px 0;
+/* Main gold rounded frame */
+main.container{
+  width: min(720px, 92%);
+  margin: 24px auto;
+  background: #fff;
+  border: 6px solid #d1a119;           /* gold */
+  border-radius: 60px;
+  padding: 34px 40px 42px;
 }
 
-.row {
-  display: grid;
-  grid-template-columns: 160px 1fr 120px;
-  gap: 10px;
+/* Remove inner “card” styling so it looks like ONE panel */
+.card{
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+}
+
+/* Hide headings not shown in screenshots */
+.card h2, .card h3, .muted { display: none; }
+
+/* ===== Search area: Name or ID + input + Find ===== */
+.row{
+  display: flex;
+  justify-content: center;
   align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
 }
 
-input, select, button {
-  padding: 10px;
-  border-radius: 10px;
-  border: 1px solid #334155;
-  background: #0b1220;
-  color: #e2e8f0;
+/* Hide the HTML label; we’ll render “Name or ID” like the screenshot */
+.row label{ display: none; }
+
+/* Put the "Name or ID" title above the row, centered, serif */
+.card:first-child::before{
+  content: "Name or ID";
+  display: block;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 26px;
+  margin-bottom: 8px;
 }
 
-button {
+/* Simple, square-ish controls */
+#pokemonInput{
+  width: 230px;
+  height: 28px;
+  padding: 2px 6px;
+  font-size: 16px;
+  border: 1px solid #777;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+}
+
+#submitBtn{
+  height: 28px;
+  padding: 2px 10px;
+  font-size: 16px;
+  border: 1px solid #777;
+  border-radius: 0;
+  background: #e6e6e6;
+  color: #111;
   cursor: pointer;
-  background: #2563eb;
-  border-color: #2563eb;
 }
 
-button:disabled {
+#submitBtn:hover{ background: #dedede; }
+
+/* status line (not prominent in screenshots) */
+.status{
+  min-height: 18px;
+  margin: 6px 0 0;
+  text-align: center;
+  color: #222;
+  font-weight: 600;
+}
+
+/* ===== Main pokemon panel ===== */
+#pokemonPanel{ margin-top: 6px; }
+#pokeName{ display: none; } /* screenshot does not show pokemon name */
+
+/* Center everything vertically */
+.panel{
+  display: block;
+  text-align: center;
+}
+
+/* Pokémon image */
+.spriteBox{
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 8px 0 6px;
+}
+
+#pokeImg{
+  width: 250px;
+  height: 250px;
+  image-rendering: pixelated;
+}
+
+/* Audio player centered and larger width */
+.audioRow{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 18px;
+}
+
+.audioRow .label{ display: none; }
+#audioNote{ display: none; }
+
+#pokeAudio{
+  width: min(560px, 95%);
+}
+
+/* Moves dropdowns: 2 columns x 2 rows */
+.movesGrid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 18px;
+  width: min(620px, 100%);
+  margin: 0 auto 18px;
+}
+
+.movePick label{ display: none; }
+
+select{
+  width: 100%;
+  height: 26px;
+  padding: 2px 6px;
+  font-size: 16px;
+  border: 1px solid #777;
+  border-radius: 0;
+  background: #fff;
+  color: #111;
+}
+
+/* Add to Team button: centered gray */
+#addBtn{
+  display: block;
+  margin: 0 auto 10px;
+  height: 30px;
+  padding: 2px 14px;
+  font-size: 16px;
+  border: 1px solid #777;
+  border-radius: 0;
+  background: #e6e6e6;
+  color: #111;
+  cursor: pointer;
+}
+
+#addBtn:hover{ background: #dedede; }
+#addBtn:disabled{
   opacity: 0.55;
   cursor: not-allowed;
 }
 
-.status { min-height: 20px; }
+/* ===== Team Section (table-like with borders) ===== */
+/* We’ll keep the section but remove its heading to match screenshot */
+section.card:last-of-type > h2,
+section.card:last-of-type > p{ display: none; }
 
-.panel {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 16px;
-  align-items: start;
+/* Team container should look like a bordered table */
+#teamGrid{
+  width: min(640px, 100%);
+  margin: 8px auto 0;
+  border: 1px solid #111;
+  background: #fff;
 }
 
-.spriteBox {
+/* Each team entry should behave like a row with a divider */
+.teamCard{
   display: grid;
-  place-items: center;
-  background: #0b1220;
-  border: 1px solid #1f2937;
-  border-radius: 12px;
-  padding: 10px;
+  grid-template-columns: 160px 1fr;
+  gap: 14px;
+  padding: 12px 14px;
+  border-bottom: 1px solid #111;
 }
 
-.spriteBox img {
-  width: 180px;
-  height: 180px;
+/* remove bottom border on last row */
+.teamCard:last-child{
+  border-bottom: none;
+}
+
+/* Left side: sprite centered */
+.teamHeader{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.teamHeader img{
+  width: 92px;
+  height: 92px;
   image-rendering: pixelated;
 }
 
-.infoBox .audioRow {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
+/* Right side: bullet list with spacing like screenshot */
+.movesList{
+  margin: 4px 0 0;
+  padding-left: 22px;
 }
 
-.label { font-weight: 600; }
-.muted { color: #94a3b8; font-size: 0.95rem; }
-
-.movesGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 10px 0 12px;
+.movesList li{
+  margin: 3px 0;
+  font-size: 18px;
 }
 
-.movePick label { display: block; margin-bottom: 6px; }
+/* Hide Clear button (not shown in screenshot) */
+#clearBtn{ display: none; }
 
-.teamGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  margin-top: 10px;
-}
+/* Mobile adjustments */
+@media (max-width: 560px){
+  main.container{
+    padding: 26px 18px 32px;
+    border-radius: 40px;
+  }
 
-.teamCard {
-  background: #0b1220;
-  border: 1px solid #1f2937;
-  border-radius: 12px;
-  padding: 12px;
-}
+  #pokemonInput{ width: 190px; }
 
-.teamHeader {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
+  #pokeImg{ width: 220px; height: 220px; }
 
-.teamHeader img {
-  width: 64px;
-  height: 64px;
-}
+  .movesGrid{ grid-template-columns: 1fr; }
 
-.movesList {
-  margin: 10px 0 0;
-  padding-left: 18px;
-}
-
-.danger {
-  margin-top: 12px;
-  background: #dc2626;
-  border-color: #dc2626;
+  .teamCard{ grid-template-columns: 1fr; }
 }
