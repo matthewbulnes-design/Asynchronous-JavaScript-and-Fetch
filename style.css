@@ -12,9 +12,8 @@ header.container{
   display: none;
 }
 
-/* Main gold rounded frame */
 main.container{
-  width: min(720px, 92%);
+  width: min(640px, 72%);
   margin: 24px auto;
   background: #fff;
   border: 6px solid #d1a119;           /* gold */
@@ -22,7 +21,6 @@ main.container{
   padding: 34px 40px 42px;
 }
 
-/* Remove inner “card” styling so it looks like ONE panel */
 .card{
   background: transparent;
   border: none;
@@ -32,10 +30,8 @@ main.container{
   box-shadow: none;
 }
 
-/* Hide headings not shown in screenshots */
 .card h2, .card h3, .muted { display: none; }
 
-/* ===== Search area: Name or ID + input + Find ===== */
 .row{
   display: flex;
   justify-content: center;
@@ -44,10 +40,8 @@ main.container{
   margin-bottom: 18px;
 }
 
-/* Hide the HTML label; we’ll render “Name or ID” like the screenshot */
 .row label{ display: none; }
 
-/* Put the "Name or ID" title above the row, centered, serif */
 .card:first-child::before{
   content: "Name or ID";
   display: block;
@@ -57,7 +51,6 @@ main.container{
   margin-bottom: 8px;
 }
 
-/* Simple, square-ish controls */
 #pokemonInput{
   width: 230px;
   height: 28px;
@@ -82,7 +75,6 @@ main.container{
 
 #submitBtn:hover{ background: #dedede; }
 
-/* status line (not prominent in screenshots) */
 .status{
   min-height: 18px;
   margin: 6px 0 0;
@@ -91,17 +83,15 @@ main.container{
   font-weight: 600;
 }
 
-/* ===== Main pokemon panel ===== */
 #pokemonPanel{ margin-top: 6px; }
-#pokeName{ display: none; } /* screenshot does not show pokemon name */
+#pokeName{ display: none; } 
 
-/* Center everything vertically */
 .panel{
   display: block;
   text-align: center;
 }
 
-/* Pokémon image */
+
 .spriteBox{
   display: flex;
   justify-content: center;
@@ -116,7 +106,6 @@ main.container{
   image-rendering: pixelated;
 }
 
-/* Audio player centered and larger width */
 .audioRow{
   display: flex;
   justify-content: center;
@@ -132,7 +121,6 @@ main.container{
   width: min(560px, 95%);
 }
 
-/* Moves dropdowns: 2 columns x 2 rows */
 .movesGrid{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -154,7 +142,6 @@ select{
   color: #111;
 }
 
-/* Add to Team button: centered gray */
 #addBtn{
   display: block;
   margin: 0 auto 10px;
@@ -174,12 +161,9 @@ select{
   cursor: not-allowed;
 }
 
-/* ===== Team Section (table-like with borders) ===== */
-/* We’ll keep the section but remove its heading to match screenshot */
 section.card:last-of-type > h2,
 section.card:last-of-type > p{ display: none; }
 
-/* Team container should look like a bordered table */
 #teamGrid{
   width: min(640px, 100%);
   margin: 8px auto 0;
@@ -187,7 +171,6 @@ section.card:last-of-type > p{ display: none; }
   background: #fff;
 }
 
-/* Each team entry should behave like a row with a divider */
 .teamCard{
   display: grid;
   grid-template-columns: 160px 1fr;
@@ -196,12 +179,10 @@ section.card:last-of-type > p{ display: none; }
   border-bottom: 1px solid #111;
 }
 
-/* remove bottom border on last row */
 .teamCard:last-child{
   border-bottom: none;
 }
 
-/* Left side: sprite centered */
 .teamHeader{
   display: flex;
   justify-content: center;
@@ -214,7 +195,6 @@ section.card:last-of-type > p{ display: none; }
   image-rendering: pixelated;
 }
 
-/* Right side: bullet list with spacing like screenshot */
 .movesList{
   margin: 4px 0 0;
   padding-left: 22px;
@@ -225,10 +205,8 @@ section.card:last-of-type > p{ display: none; }
   font-size: 18px;
 }
 
-/* Hide Clear button (not shown in screenshot) */
 #clearBtn{ display: none; }
 
-/* Mobile adjustments */
 @media (max-width: 560px){
   main.container{
     padding: 26px 18px 32px;

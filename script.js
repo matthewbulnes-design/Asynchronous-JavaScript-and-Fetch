@@ -68,7 +68,6 @@ const clearBtn = document.getElementById("clearBtn");
 let currentPokemon = null;
 let team = [];
 
-/* Hide status messages to match teacher screenshots */
 function setStatus(msg, isError = false) {
   statusEl.textContent = "";
 }
@@ -122,12 +121,6 @@ function pickCryUrl(pokeData) {
   return pokeData?.cries?.latest || pokeData?.cries?.legacy || "";
 }
 
-/*
-  Teacher screenshot: Team section is a simple bordered list:
-  - left: sprite
-  - right: bullet list of 4 moves
-  - no audio, no remove button, no extra text
-*/
 function renderTeam() {
   teamGrid.innerHTML = "";
   if (team.length === 0) return;
@@ -176,7 +169,6 @@ async function handleSubmit() {
     const displayName = capitalize(data.name);
     pokeNameEl.textContent = displayName;
 
-    /* Replace placeholder image with the real Pokemon sprite */
     const spriteUrl = pickBestSprite(data);
     if (spriteUrl) {
       pokeImgEl.src = spriteUrl;
@@ -253,11 +245,6 @@ clearBtn.addEventListener("click", () => {
   setStatus("Team cleared.");
 });
 
-/* ===== Initial page placeholder (your PNG) =====
-   Put your placeholder image file in the same folder as index.html,
-   and name it: placeholder.png
-   If yours has a different name, change it here.
-*/
 pokeImgEl.src = "initialpoke.png";
 pokeImgEl.alt = "No Pokemon selected";
 
